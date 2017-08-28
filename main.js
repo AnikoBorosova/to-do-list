@@ -1,3 +1,4 @@
+//creating html for the form and ul
 var myForm = document.createDocumentFragment();
 
 var input = document.createElement('input');
@@ -15,15 +16,18 @@ ul.setAttribute('id', 'list');
 document.getElementById('main').appendChild(myForm);
 document.getElementById('main').appendChild(ul);
 
+//setting up eventListener on button
 document.getElementById('btn').addEventListener('click', function () {
 
     var userInput = document.getElementById('user-input').value;
+    
+    //creating html inside the ul
     var listItemTag =  document.createElement('li');
 
     var inputTag =  document.createElement('input');
     inputTag.type = "checkbox";
     var pTag =  document.createElement('p');
-    pTag.innerHTML = userInput;
+    pTag.innerHTML = userInput;  //user input value to be shown in the list
     var buttonTag =  document.createElement('button');
     var buttonText = document.createTextNode('Delete');
     buttonTag.appendChild(buttonText);
@@ -35,9 +39,11 @@ document.getElementById('btn').addEventListener('click', function () {
     document.getElementById('list').appendChild(listItemTag);
     document.getElementById('user-input').value = "";
 
+//making the list interactive
     pTag.addEventListener('click', editItem);
     var editInput = document.createElement('input');
 
+    //to make a task editable
     function editItem() {
         pTag.replaceWith(editInput);
         editInput.focus();
@@ -46,6 +52,7 @@ document.getElementById('btn').addEventListener('click', function () {
 
     editInput.addEventListener('blur', updateItem);
 
+    //to save the edit
     function updateItem() {
         editInput.replaceWith(pTag);
         pTag.innerHTML = editInput.value;
@@ -53,6 +60,7 @@ document.getElementById('btn').addEventListener('click', function () {
 
     inputTag.addEventListener('click', itemDone);
 
+    //to cross off a task when it is done
     function itemDone() {
         if (inputTag.checked) {
             pTag.classList.add('done');
@@ -63,6 +71,7 @@ document.getElementById('btn').addEventListener('click', function () {
 
     buttonTag.addEventListener('click', removeItem); 
 
+    //to remove an item from the list
     function removeItem() {
         listItemTag.classList.add('remove');
     }
